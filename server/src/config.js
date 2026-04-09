@@ -36,10 +36,7 @@ export const config = {
     timeoutMs: Number(process.env.OLLAMA_TIMEOUT_MS ?? 90000),
     startupCheck: toBool(process.env.OLLAMA_STARTUP_CHECK, true),
     autoPullMissingModels: toBool(process.env.OLLAMA_AUTO_PULL, true),
-    pullOptionalModels: toBool(
-      process.env.OLLAMA_PULL_OPTIONAL_MODELS,
-      false,
-    ),
+    pullOptionalModels: toBool(process.env.OLLAMA_PULL_OPTIONAL_MODELS, false),
   },
   generation: {
     requireAi: toBool(process.env.REQUIRE_AI_GENERATION, false),
@@ -54,8 +51,8 @@ export const config = {
     timeoutMs: Number(process.env.COMFYUI_TIMEOUT_MS ?? 240000),
     pollIntervalMs: Number(process.env.COMFYUI_POLL_INTERVAL_MS ?? 1200),
     steps: Number(process.env.COMFYUI_STEPS ?? 20),
-    cfg: Number(process.env.COMFYUI_CFG ?? 7),
-    denoise: Number(process.env.COMFYUI_DENOISE ?? 0.55),
+    cfg: Number(process.env.COMFYUI_CFG ?? 6.5),
+    denoise: Number(process.env.COMFYUI_DENOISE ?? 0.35),
     sampler: process.env.COMFYUI_SAMPLER ?? "euler",
     scheduler: process.env.COMFYUI_SCHEDULER ?? "normal",
     promptTemplate:
@@ -63,7 +60,7 @@ export const config = {
       "{prompt}, studio ghibli style, hand-painted anime frame, soft cinematic light, highly detailed",
     negativePrompt:
       process.env.COMFYUI_NEGATIVE_PROMPT ??
-      "low quality, blurry, distorted face, bad anatomy, extra fingers, text, watermark, logo",
+      "low quality, blurry, distorted face, deformed anatomy, bad proportions, asymmetrical face, different face, identity loss, altered pose, extra limbs, extra fingers, missing fingers, different hairstyle, wrong facial features, text, watermark, logo, artifacts, noise",
   },
   googleDrive: {
     credentialsPath: process.env.GOOGLE_APPLICATION_CREDENTIALS ?? "",
