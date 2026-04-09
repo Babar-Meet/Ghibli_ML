@@ -1,0 +1,7 @@
+<svg width="420" height="120" viewBox="0 0 420 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="College logo">
+  <rect x="2" y="2" width="416" height="116" rx="18" fill="#fff6ea" stroke="#e2c9ad" stroke-width="4"/>
+  <circle cx="58" cy="60" r="30" fill="#e35d39"/>
+  <path d="M46 60h24M58 48v24" stroke="#fff5f2" stroke-width="6" stroke-linecap="round"/>
+  <text x="102" y="55" fill="#213044" font-size="36" font-family="Verdana, sans-serif" font-weight="700">COLLEGE</text>
+  <text x="102" y="85" fill="#5b6880" font-size="20" font-family="Verdana, sans-serif" font-weight="600">PHOTO BOOTH</text>
+</svg>

@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>College Ghibli Booth</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800&family=Sora:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg-shape shape-one"></div>
+    <div class="bg-shape shape-two"></div>
+    <div class="bg-shape shape-three"></div>
+
+    <main class="layout">
+      <header class="hero card reveal">
+        <img
+          src="./assets/college-logo.svg"
+          alt="College logo"
+          class="hero-logo"
+        />
+        <div class="hero-copy">
+          <p class="eyebrow">College Photo Booth</p>
+          <h1>V Sign to Ghibli</h1>
+          <p>
+            Capture a photo, send it to the server, create a Ghibli-style
+            version, and let students download both using QR.
+          </p>
+        </div>
+        <div class="badge">Ollama + Drive Pipeline</div>
+      </header>
+
+      <section class="capture-grid">
+        <article class="card reveal delay-1">
+          <h2>1. Capture</h2>
+          <div class="video-shell">
+            <video id="cameraFeed" autoplay playsinline muted></video>
+            <canvas id="captureCanvas" class="hidden"></canvas>
+            <img id="capturePreview" class="hidden" alt="Captured preview" />
+            <div class="video-overlay">Show V hand sign and click Capture</div>
+          </div>
+
+          <div class="controls">
+            <button id="startBtn" class="btn ghost" type="button">
+              Start Camera
+            </button>
+            <button id="captureBtn" class="btn" type="button">Capture</button>
+            <button id="retakeBtn" class="btn ghost" type="button">
+              Retake
+            </button>
+            <button id="sendBtn" class="btn primary" type="button">
+              Send to Booth
+            </button>
+          </div>
+
+          <section
+            id="pipelinePanel"
+            class="pipeline hidden"
+            aria-live="polite"
+          >
+            <div class="pipeline-head">
+              <strong id="pipelineStage">Idle</strong>
+              <span id="pipelinePercent">0%</span>
+            </div>
+            <div class="pipeline-bar">
+              <div id="pipelineFill" class="pipeline-fill"></div>
+            </div>
+            <div class="pipeline-meta-row">
+              <span id="pipelineEta">ETA --</span>
+              <span id="pipelineMeta">Waiting to start...</span>
+            </div>
+          </section>
+
+          <p id="captureStatus" class="status">Camera not started.</p>
+        </article>
+
+        <article class="card reveal delay-2">
+          <h2>2. Downloads and QR</h2>
+
+          <div id="resultPlaceholder" class="placeholder">
+            <p>
+              After processing, both cards with QR and links will show here.
+            </p>
+          </div>
+
+          <div id="resultContent" class="hidden">
+            <p id="serverInfo" class="status"></p>
+
+            <div class="result-columns">
+              <section class="result-card">
+                <h3>Original</h3>
+                <img
+                  id="originalImage"
+                  class="result-image"
+                  alt="Original processed image"
+                />
+                <img
+                  id="originalQr"
+                  class="qr-image"
+                  alt="Original image download QR"
+                />
+                <div class="link-row">
+                  <a
+                    id="originalView"
+                    class="link-btn"
+                    href="#"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Open</a
+                  >
+                  <a
+                    id="originalDownload"
+                    class="link-btn"
+                    href="#"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Download</a
+                  >
+                </div>
+              </section>
+
+              <section class="result-card">
+                <h3>Ghibli</h3>
+                <img
+                  id="generatedImage"
+                  class="result-image"
+                  alt="Generated Ghibli image"
+                />
+                <img
+                  id="generatedQr"
+                  class="qr-image"
+                  alt="Generated image download QR"
+                />
+                <div class="link-row">
+                  <a
+                    id="generatedView"
+                    class="link-btn"
+                    href="#"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Open</a
+                  >
+                  <a
+                    id="generatedDownload"
+                    class="link-btn"
+                    href="#"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Download</a
+                  >
+                </div>
+              </section>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      window.APP_CONFIG = {
+        apiBaseUrl: "http://localhost:8787",
+      };
+    </script>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

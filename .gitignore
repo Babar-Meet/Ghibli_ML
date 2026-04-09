@@ -1,0 +1,7 @@
+server/node_modules/
+server/.env
+server/secrets/
+server/local-storage/
+*.log
+.DS_Store
+Thumbs.db
