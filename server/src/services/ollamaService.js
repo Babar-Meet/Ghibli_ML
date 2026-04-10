@@ -391,7 +391,7 @@ export async function generateImageWithOllama({ inputBuffer, prompt }) {
   const payload = {
     model: config.ollama.imageModel,
     stream: false,
-    prompt: `Transform the input image into a Studio Ghibli inspired portrait. Keep the same person and V-sign pose. Style prompt: ${prompt}`,
+    prompt: `Transform the input image into a Studio Ghibli anime style portrait. Keep the person's exact face structure, hairstyle, and features. Make them look like a beautiful young Ghibli character with large expressive eyes, gentle smile, glowing skin, flowy hair with natural strands. Same person, same pose. Keep the indoor background (lab/classroom with monitors, chairs, academic setting). Soft pastel colors, warm cozy atmosphere, hand-painted 2D animation quality. Style prompt: ${prompt}`,
     images: [referenceBase64],
   };
 

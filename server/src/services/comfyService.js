@@ -79,7 +79,12 @@ function buildWorkflow({ uploadedImageName, prompt }) {
     prompt,
   );
 
-  return {
+  const useLora = Boolean(config.comfy.lora?.name);
+  const loraName = config.comfy.lora?.name ?? "";
+  const loraStrengthModel = config.comfy.lora?.strengthModel ?? 0.8;
+  const loraStrengthClip = config.comfy.lora?.strengthClip ?? 0.8;
+
+  const workflow = {
     1: {
       class_type: "CheckpointLoaderSimple",
       inputs: {
@@ -104,17 +109,27 @@ function buildWorkflow({ uploadedImageName, prompt }) {
       class_type: "CLIPTextEncode",
       inputs: {
         text: positivePrompt,
-        clip: ["1", 1],
+        clip: useLora ? ["6", 1] : ["1", 1],
       },
     },
     5: {
       class_type: "CLIPTextEncode",
       inputs: {
         text: config.comfy.negativePrompt,
-        clip: ["1", 1],
+        clip: useLora ? ["6", 1] : ["1", 1],
       },
     },
     6: {
+      class_type: "LoraLoader",
+      inputs: {
+        lora_name: loraName,
+        strength_model: loraStrengthModel,
+        strength_clip: loraStrengthClip,
+        model: ["1", 0],
+        clip: ["1", 1],
+      },
+    },
+    7: {
       class_type: "KSampler",
       inputs: {
         seed: randomSeed(),
@@ -123,27 +138,38 @@ function buildWorkflow({ uploadedImageName, prompt }) {
         sampler_name: config.comfy.sampler,
         scheduler: config.comfy.scheduler,
         denoise: config.comfy.denoise,
-        model: ["1", 0],
+        model: useLora ? ["6", 0] : ["1", 0],
         positive: ["4", 0],
         negative: ["5", 0],
         latent_image: ["3", 0],
       },
     },
-    7: {
+    8: {
       class_type: "VAEDecode",
       inputs: {
-        samples: ["6", 0],
+        samples: ["7", 0],
         vae: ["1", 2],
       },
     },
-    8: {
+    9: {
       class_type: "SaveImage",
       inputs: {
         filename_prefix: "gibali",
-        images: ["7", 0],
+        images: ["8", 0],
       },
     },
   };
+
+  if (!useLora) {
+    delete workflow[6];
+    workflow[7].inputs.model = ["1", 0];
+    workflow[7].inputs.positive = ["4", 0];
+    workflow[7].inputs.negative = ["5", 0];
+    workflow[8].inputs.samples = ["7", 0];
+    workflow[9].inputs.images = ["8", 0];
+  }
+
+  return workflow;
 }
 
 async function uploadInputImage(inputBuffer) {

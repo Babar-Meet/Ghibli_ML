@@ -48,6 +48,11 @@ export const config = {
       process.env.COMFYUI_BASE_URL ?? "http://127.0.0.1:8188",
     ),
     checkpoint: process.env.COMFYUI_CHECKPOINT ?? "",
+    lora: {
+      name: process.env.COMFYUI_LORA ?? "",
+      strengthModel: Number(process.env.COMFYUI_LORA_STRENGTH ?? 0.8),
+      strengthClip: Number(process.env.COMFYUI_LORA_STRENGTH ?? 0.8),
+    },
     timeoutMs: Number(process.env.COMFYUI_TIMEOUT_MS ?? 240000),
     pollIntervalMs: Number(process.env.COMFYUI_POLL_INTERVAL_MS ?? 1200),
     steps: Number(process.env.COMFYUI_STEPS ?? 20),
@@ -56,11 +61,9 @@ export const config = {
     sampler: process.env.COMFYUI_SAMPLER ?? "euler",
     scheduler: process.env.COMFYUI_SCHEDULER ?? "normal",
     promptTemplate:
-      process.env.COMFYUI_PROMPT_TEMPLATE ??
-      "{prompt}, studio ghibli style, hand-painted anime frame, soft cinematic light, highly detailed",
+      process.env.COMFYUI_PROMPT_TEMPLATE ?? "",
     negativePrompt:
-      process.env.COMFYUI_NEGATIVE_PROMPT ??
-      "low quality, blurry, distorted face, deformed anatomy, bad proportions, asymmetrical face, different face, identity loss, altered pose, extra limbs, extra fingers, missing fingers, different hairstyle, wrong facial features, text, watermark, logo, artifacts, noise",
+      process.env.COMFYUI_NEGATIVE_PROMPT ?? "",
   },
   googleDrive: {
     credentialsPath: process.env.GOOGLE_APPLICATION_CREDENTIALS ?? "",
